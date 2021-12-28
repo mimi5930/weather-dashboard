@@ -19,7 +19,7 @@ $("#search-button").on("click", function() {
 
 function currentWeather() {
     // create an api call with input information
-    var currentWeatherReq = requestUrl + "?q=" + citySearchText + "&appid=" + apiKey;
+    var currentWeatherReq = requestUrl + "?q=" + citySearchText + "&units=imperial&appid=" + apiKey;
     fetch(currentWeatherReq).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
@@ -27,17 +27,32 @@ function currentWeather() {
             })
         }
         else {
+            alert("error: check to see if city name is spelled correctly!");
             document.location.replace("./index.html");
         }
     })
     
 }
 
+// creates current weather elements
 function createCurrentEls(data) {
     // Name of City (date: 00/00/0000) icon
+    var cityName = data.name;
+    var currentTime = data.dt;
+    var currentIcon = data.weather.icon;
+    if (!data.weather.icon) {
+        var firstIcon = data.weather[0].icon;
+        currentIcon = firstIcon;
+    }
+    var title = document.createElement("h2");
+    title.textContent = cityName + ": (" + currentTime + ") " + currentIcon;
     // temp
+    var currentTemp = data.main.temp;
+    console.log(currentTemp);
     // wind speed
     // humidity
     // UV index (with color)
 
+    // append
+    $(".current-weather").append(title);
 } 
