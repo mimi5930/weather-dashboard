@@ -13,13 +13,12 @@ $("#search-button").on("click", function() {
     else {
         citySearchText = text;
         getCoordinates(text);
-    }
+    };
 });
 
 var getCoordinates = function(city) {
     // create api call
     var coordinatesReq = geocodeUrl + "?q=" + city + "&limit=1&appid=" + apiKey;
-    console.log(coordinatesReq);
     fetch(coordinatesReq).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
@@ -36,16 +35,24 @@ var getCoordinates = function(city) {
 
 var getCurrentWeather = function(lat, lon) {
     // call to one-call-api
-    var currWeatherReq = requestUrl + "?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&appid=" + apiKey;
+    var currWeatherReq = requestUrl + "?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&units=imperial&appid=" + apiKey;
     fetch(currWeatherReq).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data);
+                currentWeatherEls(data);
             })
         }
-    })
-}
+        else {
+            alert("error: " + response.status); // doesn't work yet
+        };
+    });
+};
 
+var currentWeatherEls = function(data) {
+    var weatherIcon = data.current.weather[0].icon;
+    var temp = data.current.temp
+    console.log(weatherIcon);
+}
 
 // function currentWeather() {
 //     // create an api call with input information
