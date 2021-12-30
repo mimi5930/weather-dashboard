@@ -64,7 +64,7 @@ var currentWeatherEls = function(data) {
 
     // create parent el
     var divEl = $("<div>")
-    .addClass("current-div container-fluid");
+    .addClass("current-div container");
 
     // create elements to store retrieved data
     // city name
@@ -106,43 +106,3 @@ var currentWeatherEls = function(data) {
     $(".current-weather-container").append(divEl);
     $(".current-div").append(cityEl, tempEl, windSpeedEl, humidityEl, uviEl);
 }
-
-
-// // creates current weather elements
-// function createCurrentEls(data) {
-//     // Name of City (date: 00/00/0000) icon
-//     var cityName = data.name;
-//     var currentTime = data.dt;
-//     var currentIcon = data.weather[0].icon;
-//     var title = document.createElement("h2");
-//     title.textContent = cityName + ": (" + currentTime + ") ";
-    
-//     var icon = document.createElement("img");
-//     var iconUrl = "https://openweathermap.org/img/w/" + currentIcon + ".png";
-//     var iconAlt = data.weather[0].description;
-//     icon.setAttribute("src", iconUrl);
-//     icon.setAttribute("alt", iconAlt);
-    
-//     // temp
-//     var currentTemp = data.main.temp;
-//     var temp = document.createElement("p");
-//     temp.textContent = "Temp: " + currentTemp + "°F";
-
-//     // wind speed
-//     var currentWind = data.wind.speed
-//     var wind = document.createElement("p");
-//     wind.textContent = "Wind: " + currentWind + " MPH"
-
-//     // humidity
-//     var currentHumidity = data.main.humidity;
-//     var humidity = document.createElement("p");
-//     humidity.textContent = "Humidity: " + currentHumidity + "%";
-
-//     // UV index (with color)
-
-//     // append
-//     $(".current-weather").append(title);
-//     title.append(icon);
-//     $(".current-weather").append(temp);
-//     $(".current-weather").append(wind);
-// } 
