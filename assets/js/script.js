@@ -113,7 +113,6 @@ var currentWeatherEls = function(data) {
     // combine uv index and button
     uviEl.append(uviButton);
     
-
     // append elements
     $(".current-weather-container").append(divEl);
     $(".current-div").append(cityEl, tempEl, windSpeedEl, humidityEl, uviEl);
