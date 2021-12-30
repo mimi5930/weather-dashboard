@@ -13,13 +13,10 @@ $("#search-button").on("click", function() {
     }
     else if ($(".current-div").length) {
         $(".current-div").remove();
-        citySearchText = text;
-        getCoordinates(text);
-    }
-    else {
-        citySearchText = text;
-        getCoordinates(text);
     };
+        citySearchText = text;
+        getCoordinates(text);
+
 });
 
 var getCoordinates = function(city) {
@@ -64,7 +61,6 @@ var currentWeatherEls = function(data) {
     var humidity = data.current.humidity;
     var windSpeed = data.current.wind_speed;
     var uvi = data.current.uvi;
-    // TODO: create a function to validate UV data
 
 
     // create parent el
@@ -102,10 +98,21 @@ var currentWeatherEls = function(data) {
     .text("UV Index: ");
     var uviButton = $("<button>")
     .attr("disabled", true)
-    .addClass()
+    .addClass(function() {
+        if (uvi >= 0 && uvi < 3) {
+            return "bg-success";
+        }
+        else if (uvi >= 3 && uvi < 8) {
+            return "bg-warning";
+        }
+        else {
+            return "bg-danger";
+        }
+    })
     .text(uvi)
     // combine uv index and button
     uviEl.append(uviButton);
+    
 
     // append elements
     $(".current-weather-container").append(divEl);
