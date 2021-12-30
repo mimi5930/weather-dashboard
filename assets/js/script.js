@@ -50,8 +50,11 @@ var getCurrentWeather = function(lat, lon) {
 
 var currentWeatherEls = function(data) {
     var weatherIcon = data.current.weather[0].icon;
-    var temp = data.current.temp
-    console.log(weatherIcon);
+    var iconAlt = data.current.weather[0].description
+    var temp = data.current.temp;
+    var humidity = data.current.humidity;
+    var windSpeed = data.current.wind_speed;
+    var uvi = data.current.uvi;
 }
 
 // function currentWeather() {
