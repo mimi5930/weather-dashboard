@@ -11,6 +11,11 @@ $("#search-button").on("click", function() {
     if (!text) {
         return false;
     }
+    else if ($(".current-div").length) {
+        $(".current-div").remove();
+        citySearchText = text;
+        getCoordinates(text);
+    }
     else {
         citySearchText = text;
         getCoordinates(text);
