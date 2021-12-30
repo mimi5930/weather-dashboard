@@ -3,6 +3,7 @@ var requestUrl = "https://api.openweathermap.org/data/2.5/onecall"
 var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct";
 var apiKey = "ff6fc12478a0481bc7a2df1ec4864f2c";
 
+var citySearchText = ""
 
 // event listener for search button
 $("#search-button").on("click", function() {
@@ -49,6 +50,8 @@ var getCurrentWeather = function(lat, lon) {
 };
 
 var currentWeatherEls = function(data) {
+    var cityName = citySearchText.charAt(0).toUpperCase() + citySearchText.slice(1); 
+    var currentDate = dayjs().format("MM/DD/YYY");
     var weatherIcon = data.current.weather[0].icon;
     var iconAlt = data.current.weather[0].description
     var temp = data.current.temp;
