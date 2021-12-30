@@ -38,7 +38,7 @@ var getCoordinates = function(city) {
 
 var getCurrentWeather = function(lat, lon) {
     // call to one-call-api
-    var currWeatherReq = requestUrl + "?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&units=imperial&appid=" + apiKey;
+    var currWeatherReq = requestUrl + "?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,alerts&units=imperial&appid=" + apiKey;
     fetch(currWeatherReq).then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
@@ -114,6 +114,70 @@ var currentWeatherEls = function(data) {
     uviEl.append(uviButton);
     
     // append elements
-    $(".current-weather-container").append(divEl);
+    $(".weather-container").append(divEl);
     $(".current-div").append(cityEl, tempEl, windSpeedEl, humidityEl, uviEl);
+
+    //create cards for forcast
+    forecastEls(data);
+}
+
+var forecastEls = function(data) {
+    // create div container to hold forecast
+    var divEl = $("<div>")
+    .addClass("forecast-div container");
+
+    // append div to section
+    $(".weather-container").append(divEl)
+
+    // create header
+    var header = $("<h2>")
+    .text("5-Day Forecast")
+    // append to div
+    $(".forecast-div").append(header);
+
+    // create elements based on data
+    for (var i = 1; i < 6; i++) {
+        // create card to hold data
+        var card = $("<div>")
+        .addClass("card");
+
+        // create card body
+        var cardBody = $("<div>")
+        .addClass("card-body");
+
+        // date
+        var date = dayjs().add([i], "day").format("MM/DD/YYYY");
+        var dateEl = $("<h3>")
+        .addClass("card-title")
+        .text(date);
+        // icon
+        var icon = data.daily[i].weather[0].icon;
+        var iconAlt = data.daily[i].weather[0].description;
+        var iconEl = $("<img>")
+        .addClass("card-subtitle")
+        .attr({
+            "src" : "https://openweathermap.org/img/w/" + icon + ".png",
+            "alt" : iconAlt
+        });
+        // temp
+        var temp = data.daily[i].temp.day;
+        var tempEl = $("<p>")
+        .addClass("card-text")
+        .text(temp);
+        // wind
+        var wind = data.daily[i].wind_speed;
+        var windEl = $("<p>")
+        .addClass("card-text")
+        .text(wind);
+        // humidity
+        var humidity = data.daily[i].humidity;
+        var humidityEl = $("<p>")
+        .addClass("card-text")
+        .text(humidity);
+
+        // append elements
+        $(".forecast-div").append(card);
+        $(".card:last-child").append(cardBody);
+        $(".card-body:last").append(dateEl, iconEl, tempEl, windEl, humidityEl);
+    }
 }
