@@ -50,32 +50,63 @@ var getCurrentWeather = function(lat, lon) {
 };
 
 var currentWeatherEls = function(data) {
+    // specify data
     var cityName = citySearchText.charAt(0).toUpperCase() + citySearchText.slice(1); 
-    var currentDate = dayjs().format("MM/DD/YYY");
+    var currentDate = "(" + dayjs().format("MM/DD/YYYY") + ") ";
     var weatherIcon = data.current.weather[0].icon;
     var iconAlt = data.current.weather[0].description
     var temp = data.current.temp;
     var humidity = data.current.humidity;
     var windSpeed = data.current.wind_speed;
     var uvi = data.current.uvi;
+    // TODO: create a function to validate UV data
+
+
+    // create parent el
+    var divEl = $("<div>")
+    .addClass("current-div container-fluid");
+
+    // create elements to store retrieved data
+    // city name
+    var cityEl = $("<h2>")
+    .addClass("city-name")
+    .text(cityName + ": " + currentDate);
+    //icon
+    var iconEl = $("<img>")
+    .attr({
+        "src" : "https://openweathermap.org/img/w/" + weatherIcon + ".png",
+        "alt" : iconAlt
+    });
+    // combine city name and icon
+    cityEl.append(iconEl);
+    // temp
+    var tempEl = $("<p>")
+    .addClass()
+    .text("Temp: " + temp + "°F");
+    // wind speed
+    var windSpeedEl = $("<p>")
+    .addClass()
+    .text("Wind: " + windSpeed + "MPH");
+    // humidity
+    var humidityEl = $("<p>")
+    .addClass()
+    .text("Humidity: " + humidity + "%");
+    // uv index
+    var uviEl = $("<p>")
+    .addClass()
+    .text("UV Index: ");
+    var uviButton = $("<button>")
+    .attr("disabled", true)
+    .addClass()
+    .text(uvi)
+    // combine uv index and button
+    uviEl.append(uviButton);
+
+    // append elements
+    $(".current-weather-container").append(divEl);
+    $(".current-div").append(cityEl, tempEl, windSpeedEl, humidityEl, uviEl);
 }
 
-// function currentWeather() {
-//     // create an api call with input information
-//     var currentWeatherReq = requestUrl + "?q=" + citySearchText + "&units=imperial&appid=" + apiKey;
-//     fetch(currentWeatherReq).then(function(response) {
-//         if (response.ok) {
-//             response.json().then(function(data) {
-//                 createCurrentEls(data);
-//             })
-//         }
-//         else {
-//             alert("error: check to see if city name is spelled correctly!");
-//             document.location.replace("./index.html");
-//         }
-//     })
-    
-// }
 
 // // creates current weather elements
 // function createCurrentEls(data) {
