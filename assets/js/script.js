@@ -1,5 +1,5 @@
 // Open weather map api
-var requestUrl = "https://api.openweathermap.org/data/2.5/weather"
+var requestUrl = "https://api.openweathermap.org/data/2.5/onecall"
 var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct";
 var apiKey = "ff6fc12478a0481bc7a2df1ec4864f2c";
 
@@ -25,15 +25,27 @@ var getCoordinates = function(city) {
             response.json().then(function(data) {
                 var cityLat = data[0].lat;
                 var cityLon = data[0].lon;
-                console.log(cityLat);
-                console.log(cityLon);
+                getCurrentWeather(cityLat, cityLon);
             })
         }
         else {
-            alert("error: " + response.status);
+            alert("error: " + response.status); // currently not working?
         };
     });
 };
+
+var getCurrentWeather = function(lat, lon) {
+    // call to one-call-api
+    var currWeatherReq = requestUrl + "?lat=" + lat + "&lon=" + lon + "&exclude=minutely,hourly,daily,alerts&appid=" + apiKey;
+    fetch(currWeatherReq).then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                console.log(data);
+            })
+        }
+    })
+}
+
 
 // function currentWeather() {
 //     // create an api call with input information
