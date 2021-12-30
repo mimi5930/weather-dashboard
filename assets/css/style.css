@@ -1,6 +1,14 @@
+/* Header Styling Start */
+
+header {
+    color: white;
+    background-image: linear-gradient(to right, blue, darkblue);
+}
+
 /* Current Weather Data Start */
 .current-div {
-    outline: black 3px solid;
+    outline: black 2px solid;
+    margin: 5px;
 }
 
 button:disabled {
@@ -9,3 +17,8 @@ button:disabled {
     padding-right: 3px;
 }
 /* Current Weather Data End */
+
+.card {
+    color: white;
+    background-color: navy;
+}

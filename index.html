@@ -11,25 +11,24 @@
 <body>
     <!-- header start -->
     <header>
-        <h1>Weather Dashboard</h1>
+        <h1 class="p-5 text-center fw-bold">Weather Dashboard</h1>
     </header>
     <!-- header end -->
 
     <!-- main start -->
-    <main>
-        <label for="city-search">Search for a City</label>
-        <input type="text" name="city-search" id="city-search" placeholder="San Diego">
-        <button id="search-button">Search</button>
-        <!-- container for localStorage elements -->
-        <div>
+    <main class="d-flex m-3">
+        <section class="col-3">
+            <label for="city-search">Search for a City</label>
+            <input type="text" name="city-search" id="city-search" placeholder="San Diego">
+            <button id="search-button">Search</button>
+            <!-- container for localStorage elements -->
+            <div>
 
-        </div>
+            </div>
+        </section>
+        <section class="weather-container col-9">  
+        </section>
     </main>
-    <!-- main end -->
-
-    <!-- current weather data -->
-    <section class="weather-container">  
-    </section>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dayjs/1.10.7/dayjs.min.js"></script>

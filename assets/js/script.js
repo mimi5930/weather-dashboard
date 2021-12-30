@@ -11,12 +11,15 @@ $("#search-button").on("click", function() {
     if (!text) {
         return false;
     }
-    else if ($(".current-div").length) {
+    if ($(".current-div").length) {
         $(".current-div").remove();
     };
+    if ($(".forecast-header").length) {
+        $(".forecast-header").remove();
+        $(".forecast-div").remove();
+    }
         citySearchText = text;
         getCoordinates(text);
-
 });
 
 var getCoordinates = function(city) {
@@ -65,7 +68,7 @@ var currentWeatherEls = function(data) {
 
     // create parent el
     var divEl = $("<div>")
-    .addClass("current-div container");
+    .addClass("current-div p-4");
 
     // create elements to store retrieved data
     // city name
@@ -122,24 +125,24 @@ var currentWeatherEls = function(data) {
 }
 
 var forecastEls = function(data) {
-    // create div container to hold forecast
-    var divEl = $("<div>")
-    .addClass("forecast-div container");
-
-    // append div to section
-    $(".weather-container").append(divEl)
-
     // create header
     var header = $("<h2>")
-    .text("5-Day Forecast")
+    .addClass("forecast-header mt-4 text-left")
+    .text("5-Day Forecast:")
     // append to div
-    $(".forecast-div").append(header);
+    $(".weather-container").append(header);
+
+    // create div container to hold forecast
+    var divEl = $("<div>")
+    .addClass("forecast-div d-flex justify-content-between mt-4");
+    // append div to section
+    $(".weather-container").append(divEl)
 
     // create elements based on data
     for (var i = 1; i < 6; i++) {
         // create card to hold data
         var card = $("<div>")
-        .addClass("card");
+        .addClass("card p-1");
 
         // create card body
         var cardBody = $("<div>")
@@ -163,17 +166,17 @@ var forecastEls = function(data) {
         var temp = data.daily[i].temp.day;
         var tempEl = $("<p>")
         .addClass("card-text")
-        .text(temp);
+        .text("Temp: " + temp + "°F");
         // wind
         var wind = data.daily[i].wind_speed;
         var windEl = $("<p>")
         .addClass("card-text")
-        .text(wind);
+        .text("Wind: " + wind + " MPH");
         // humidity
         var humidity = data.daily[i].humidity;
         var humidityEl = $("<p>")
         .addClass("card-text")
-        .text(humidity);
+        .text("Humidity: " + humidity + "%");
 
         // append elements
         $(".forecast-div").append(card);
