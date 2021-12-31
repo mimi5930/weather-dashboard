@@ -60,8 +60,14 @@ var loadSearchHistory = function() {
     searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
     if (!searchHistory) {
         searchHistory = [];
+        return;
     };
+    console.log(searchHistory)
 
+    $.each(searchHistory, function(i) {
+        var name = searchHistory[i].name;
+        console.log(name);
+    })
 }
 
 var saveCoord = function(lat, lon) {
