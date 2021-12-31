@@ -56,6 +56,14 @@ var getCurrentWeather = function(lat, lon) {
     });
 };
 
+var loadSearchHistory = function() {
+    searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
+    if (!searchHistory) {
+        searchHistory = [];
+    };
+
+}
+
 var saveCoord = function(lat, lon) {
     var search = {
         name: citySearchText,
@@ -196,3 +204,6 @@ var forecastEls = function(data) {
         $(".card-body:last").append(dateEl, iconEl, tempEl, windEl, humidityEl);
     }
 }
+
+// load files
+$(document).ready(loadSearchHistory());
