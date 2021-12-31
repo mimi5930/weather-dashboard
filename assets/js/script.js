@@ -1,9 +1,10 @@
 // Open weather map api
-var requestUrl = "https://api.openweathermap.org/data/2.5/onecall"
+var requestUrl = "https://api.openweathermap.org/data/2.5/onecall";
 var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct";
 var apiKey = "ff6fc12478a0481bc7a2df1ec4864f2c";
 
-var citySearchText = ""
+var citySearchText = "";
+var searchHistory = [];
 
 // event listener for search button
 $("#search-button").on("click", function() {
@@ -17,7 +18,7 @@ $("#search-button").on("click", function() {
     if ($(".forecast-header").length) {
         $(".forecast-header").remove();
         $(".forecast-div").remove();
-    }
+    };
         citySearchText = text;
         getCoordinates(text);
 });
@@ -30,6 +31,7 @@ var getCoordinates = function(city) {
             response.json().then(function(data) {
                 var cityLat = data[0].lat;
                 var cityLon = data[0].lon;
+                saveCoord(cityLat, cityLon);
                 getCurrentWeather(cityLat, cityLon);
             })
         }
@@ -53,6 +55,16 @@ var getCurrentWeather = function(lat, lon) {
         };
     });
 };
+
+var saveCoord = function(lat, lon) {
+    var search = {
+        name: citySearchText,
+        latitude: lat,
+        longitude: lon
+    };
+    searchHistory.push(search);
+    localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
+}
 
 var currentWeatherEls = function(data) {
     // specify data
