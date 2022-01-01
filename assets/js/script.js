@@ -5,8 +5,10 @@ var apiKey = "ff6fc12478a0481bc7a2df1ec4864f2c";
 
 var citySearchText = "";
 var searchHistory = [];
+var buttonExists = false;
 
 
+// API CALLS
 
 var getCoordinates = function(city) {
     // create api call
@@ -41,6 +43,8 @@ var getCurrentWeather = function(lat, lon) {
     });
 };
 
+// SAVE AND RETRIEVE DATA FROM LOCAL STORAGE
+
 var loadSearchHistory = function() {
     searchHistory = JSON.parse(localStorage.getItem("searchHistory"));
     if (!searchHistory) {
@@ -62,7 +66,7 @@ var loadSearchHistory = function() {
 }
 
 var createSearchEls = function(name, lat, lon) {
-// create elements to store data
+    // create elements to store data
     var searchEl = $("<button>")
     .addClass("search-button btn btn-secondary mb-2")
     .attr("id", "prev-search")
@@ -79,9 +83,21 @@ var saveCoord = function(lat, lon) {
         latitude: lat,
         longitude: lon
     };
+    // validate if information already exists in the element
+    for (i = 0; i < searchHistory.length; i++) {
+        if (searchHistory[i].name.toLowerCase() === search.name.toLowerCase()) {
+            console.log("already here");
+            buttonExists = true;
+            return;
+        }
+        console.log(searchHistory[i]);
+        console.log(search);
+    }
     searchHistory.push(search);
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
 }
+
+// CREATE ELEMENTS
 
 var currentWeatherEls = function(data) {
     // specify data
@@ -151,8 +167,13 @@ var currentWeatherEls = function(data) {
     $(".weather-container").append(divEl);
     $(".current-div").append(cityEl, tempEl, windSpeedEl, humidityEl, uviEl);
 
-    // add search button
-    createSearchEls(citySearchText, lat, lon);
+    // add recent search buttons if it doesn't already exist
+    if (!buttonExists) {
+        createSearchEls(citySearchText, lat, lon);
+    }
+    else {
+        buttonExists = false;
+    }
 
     //create cards for forcast
     forecastEls(data);
@@ -229,6 +250,7 @@ var checkChildren = function () {
     };
 }
 
+// EVENT LISTENERS
 
 // load files
 $(document).ready(loadSearchHistory());
@@ -245,7 +267,7 @@ $("#search-button").on("click", function() {
 });
 
 // event listener for previous searches
-$("#prev-search").on("click", function() {
+$(".history-container button").on("click", function() {
     // define lat and lon
     var name = $(this).text();
     var lat = $(this).attr("data-lat");
