@@ -88,9 +88,6 @@ var createSearchEls = function(name, lat, lon) {
 }
 
 var saveCoord = function(lat, lon) {
-    if (searchHistory.includes("name: '" + citySearchText + "'")) {
-        return;
-    }
     var search = {
         name: citySearchText,
         latitude: lat,
