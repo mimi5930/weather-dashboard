@@ -6,22 +6,7 @@ var apiKey = "ff6fc12478a0481bc7a2df1ec4864f2c";
 var citySearchText = "";
 var searchHistory = [];
 
-// event listener for search button
-$("#search-button").on("click", function() {
-    var text = $("#city-search").val();
-    if (!text) {
-        return false;
-    }
-    if ($(".current-div").length) {
-        $(".current-div").remove();
-    };
-    if ($(".forecast-header").length) {
-        $(".forecast-header").remove();
-        $(".forecast-div").remove();
-    };
-        citySearchText = text;
-        getCoordinates(text);
-});
+
 
 var getCoordinates = function(city) {
     // create api call
@@ -79,7 +64,8 @@ var loadSearchHistory = function() {
 var createSearchEls = function(name, lat, lon) {
 // create elements to store data
     var searchEl = $("<button>")
-    .addClass("search-button prev-search btn btn-secondary mb-2")
+    .addClass("search-button btn btn-secondary mb-2")
+    .attr("id", "prev-search")
     .text(name)
     .attr("data-lat", lat)
     .attr("data-lon", lon);
@@ -107,6 +93,8 @@ var currentWeatherEls = function(data) {
     var humidity = data.current.humidity;
     var windSpeed = data.current.wind_speed;
     var uvi = data.current.uvi;
+    var lat = data.lat;
+    var lon = data.lon;
 
 
     // create parent el
@@ -162,6 +150,9 @@ var currentWeatherEls = function(data) {
     // append elements
     $(".weather-container").append(divEl);
     $(".current-div").append(cityEl, tempEl, windSpeedEl, humidityEl, uviEl);
+
+    // add search button
+    createSearchEls(citySearchText, lat, lon);
 
     //create cards for forcast
     forecastEls(data);
@@ -228,5 +219,44 @@ var forecastEls = function(data) {
     }
 }
 
+var checkChildren = function () {
+    if ($(".current-div").length) {
+        $(".current-div").remove();
+    };
+    if ($(".forecast-header").length) {
+        $(".forecast-header").remove();
+        $(".forecast-div").remove();
+    };
+}
+
+
 // load files
 $(document).ready(loadSearchHistory());
+
+// event listener for search button
+$("#search-button").on("click", function() {
+    var text = $("#city-search").val();
+    if (!text) {
+        return false;
+    }
+    checkChildren();
+    citySearchText = text;
+    getCoordinates(text);
+});
+
+// event listener for previous searches
+$("#prev-search").on("click", function() {
+    // define lat and lon
+    var name = $(this).text();
+    var lat = $(this).attr("data-lat");
+    var lon = $(this).attr("data-lon");
+    
+    // update city name
+    citySearchText = name;
+    
+    // delete child elements
+    checkChildren();
+
+    //input vals into api call
+    getCurrentWeather(lat, lon);
+})
