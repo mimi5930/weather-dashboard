@@ -52,7 +52,6 @@ var loadSearchHistory = function() {
         searchHistory = [];
         return;
     };
-    console.log(searchHistory)
 
     $.each(searchHistory, function(i) {
         // create varialbes to store relevant info
@@ -87,12 +86,9 @@ var saveCoord = function(lat, lon) {
     // validate if information already exists in the element
     for (i = 0; i < searchHistory.length; i++) {
         if (searchHistory[i].name.toLowerCase() === search.name.toLowerCase()) {
-            console.log("already here");
             buttonExists = true;
             return;
         }
-        console.log(searchHistory[i]);
-        console.log(search);
     }
     searchHistory.push(search);
     localStorage.setItem("searchHistory", JSON.stringify(searchHistory));
