@@ -6,6 +6,7 @@ var apiKey = "ff6fc12478a0481bc7a2df1ec4864f2c";
 var citySearchText = "";
 var searchHistory = [];
 var buttonExists = false;
+var buttonClicked = false;
 
 
 // API CALLS
@@ -167,16 +168,21 @@ var currentWeatherEls = function(data) {
     $(".weather-container").append(divEl);
     $(".current-div").append(cityEl, tempEl, windSpeedEl, humidityEl, uviEl);
 
-    // add recent search buttons if it doesn't already exist
-    if (!buttonExists) {
-        createSearchEls(citySearchText, lat, lon);
-    }
-    else {
-        buttonExists = false;
-    }
-
     //create cards for forcast
     forecastEls(data);
+
+    // add recent search buttons if it doesn't already exist
+    if (buttonClicked) {
+        buttonClicked = false;
+        return;
+    }
+    else if (buttonExists) {
+        buttonExists = false;
+        return;
+    }
+    else {
+    }
+    createSearchEls(citySearchText, lat, lon);
 }
 
 var forecastEls = function(data) {
@@ -267,11 +273,12 @@ $("#search-button").on("click", function() {
 });
 
 // event listener for previous searches
-$(".history-container button").on("click", function() {
+$(".history-container :button").on("click", function() {
     // define lat and lon
     var name = $(this).text();
     var lat = $(this).attr("data-lat");
     var lon = $(this).attr("data-lon");
+    buttonClicked = true;
     
     // update city name
     citySearchText = name;
