@@ -196,14 +196,14 @@ var currentWeatherEls = function(data) {
 var forecastEls = function(data) {
     // create header
     var header = $("<h2>")
-    .addClass("forecast-header mt-4 text-left")
+    .addClass("forecast-header mt-4 text-center")
     .text("5-Day Forecast:")
     // append to div
     $(".weather-container").append(header);
 
     // create div container to hold forecast
     var divEl = $("<div>")
-    .addClass("forecast-div d-flex justify-content-between mt-4");
+    .addClass("forecast-div d-flex justify-content-around mt-4");
     // append div to section
     $(".weather-container").append(divEl)
 

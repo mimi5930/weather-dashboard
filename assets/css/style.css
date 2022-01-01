@@ -29,8 +29,7 @@ main label {
 
 button:disabled {
     color: white;
-    padding-left: 3px;
-    padding-right: 3px;
+    padding: 1px 15px;
 }
 /* Current Weather Data End */
 
