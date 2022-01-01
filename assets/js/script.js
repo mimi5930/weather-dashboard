@@ -9,6 +9,18 @@ var buttonExists = false;
 var buttonClicked = false;
 
 
+// INPUT ENTERED
+
+var inputEntered = function() {
+    var text = $("#city-search").val();
+    if (!text) {
+        return false;
+    }
+    checkChildren();
+    citySearchText = text;
+    getCoordinates(text);
+};
+
 // API CALLS
 
 var getCoordinates = function(city) {
@@ -259,14 +271,15 @@ $(document).ready(loadSearchHistory());
 
 // event listener for search button
 $("#search-button").on("click", function() {
-    var text = $("#city-search").val();
-    if (!text) {
-        return false;
-    }
-    checkChildren();
-    citySearchText = text;
-    getCoordinates(text);
+    inputEntered();
 });
+
+// event listener for enter key pressed
+$("#city-search").keypress(function(e) {
+    if (e.which == 13) {
+        inputEntered();
+    }
+})
 
 // event listener for previous searches
 $(".history-container").on("click", "button", function() {
