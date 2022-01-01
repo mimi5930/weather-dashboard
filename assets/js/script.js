@@ -79,7 +79,7 @@ var loadSearchHistory = function() {
 var createSearchEls = function(name, lat, lon) {
 // create elements to store data
     var searchEl = $("<button>")
-    .addClass("btn btn-secondary")
+    .addClass("search-button prev-search btn btn-secondary mb-2")
     .text(name)
     .attr("data-lat", lat)
     .attr("data-lon", lon);

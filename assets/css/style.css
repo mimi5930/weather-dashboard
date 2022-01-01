@@ -12,6 +12,10 @@ main label {
     font-size: x-large;
 }
 
+.search-button {
+    width: 100%;
+}
+
 /* Current Weather Data Start */
 .current-div {
     outline: black 2px solid;
