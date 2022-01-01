@@ -269,7 +269,7 @@ $("#search-button").on("click", function() {
 });
 
 // event listener for previous searches
-$(".history-container :button").on("click", function() {
+$(".history-container").on("click", "button", function() {
     // define lat and lon
     var name = $(this).text();
     var lat = $(this).attr("data-lat");
