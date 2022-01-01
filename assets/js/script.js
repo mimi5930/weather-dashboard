@@ -65,12 +65,32 @@ var loadSearchHistory = function() {
     console.log(searchHistory)
 
     $.each(searchHistory, function(i) {
+        // create varialbes to store relevant info
         var name = searchHistory[i].name;
-        console.log(name);
+        var lat = searchHistory[i].latitude;
+        var lon = searchHistory[i].longitude;
+
+        // create elements with current values
+        createSearchEls(name, lat, lon);
+        
     })
 }
 
+var createSearchEls = function(name, lat, lon) {
+// create elements to store data
+    var searchEl = $("<button>")
+    .addClass("btn btn-secondary")
+    .text(name)
+    .attr("data-lat", lat)
+    .attr("data-lon", lon);
+
+    $(".history-container").append(searchEl);
+}
+
 var saveCoord = function(lat, lon) {
+    if (searchHistory.includes("name: '" + citySearchText + "'")) {
+        return;
+    }
     var search = {
         name: citySearchText,
         latitude: lat,
