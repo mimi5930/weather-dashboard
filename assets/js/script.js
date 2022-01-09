@@ -38,10 +38,7 @@ var getCoordinates = function(city) {
         else {
             alert("Error: " + response.statusText);
         };
-    })
-        .catch(function(error) {
-            alert("Unable to connect to OpenWeatherMap");
-        });
+    });
 };
 
 var getCurrentWeather = function(lat, lon) {
@@ -56,9 +53,6 @@ var getCurrentWeather = function(lat, lon) {
         else {
             alert("error: " + response.statusText);
         };
-    })
-    .catch(function(error) {
-        alert("Unable to connect to OpenWeatherMap");
     });
 };
 
