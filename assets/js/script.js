@@ -1,6 +1,6 @@
 // Open weather map api
 var requestUrl = "https://api.openweathermap.org/data/2.5/onecall";
-var geocodeUrl = "http://api.openweathermap.org/geo/1.0/direct";
+var geocodeUrl = "https://api.openweathermap.org/geo/1.0/direct";
 var apiKey = "ff6fc12478a0481bc7a2df1ec4864f2c";
 
 var citySearchText = "";
@@ -38,6 +38,9 @@ var getCoordinates = function(city) {
         else {
             alert("Error: " + response.statusText);
         };
+    })
+    .catch(function(error) {
+        alert("Unable to connect to OpenWeatherMap");
     });
 };
 
@@ -53,7 +56,10 @@ var getCurrentWeather = function(lat, lon) {
         else {
             alert("error: " + response.statusText);
         };
-    });
+    })
+    .catch(function(error) {
+        alert("Unable to connect to OpenWeatherMap");
+    })
 };
 
 // SAVE AND RETRIEVE DATA FROM LOCAL STORAGE
