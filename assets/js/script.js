@@ -209,7 +209,7 @@ var forecastEls = function(data) {
 
     // create div container to hold forecast
     var divEl = $("<div>")
-    .addClass("forecast-div d-flex justify-content-around mt-4");
+    .addClass("forecast-div d-flex flex-md-row flex-column justify-content-md-around mt-4");
     // append div to section
     $(".weather-container").append(divEl)
 
@@ -217,7 +217,7 @@ var forecastEls = function(data) {
     for (var i = 1; i < 6; i++) {
         // create card to hold data
         var card = $("<div>")
-        .addClass("card p-1");
+        .addClass("card p-1 m-1");
 
         // create card body
         var cardBody = $("<div>")
